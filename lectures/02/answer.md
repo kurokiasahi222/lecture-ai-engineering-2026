@@ -3,17 +3,95 @@
 ## 演習
 
 - 使ったモデル・設定（`result.json` の `config` から）：
+```
+"config": {
+    "base_model": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "seed": 42,
+    "num_train_epochs": 20,
+    "warmup_steps": 6,
+    "lr": 0.0002,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "max_seq_len": 512,
+    "max_new_tokens": 96,
+    "gen": {
+      "do_sample": false
+    }
+```
 - 自分で学習を実行したか（`executed_training_myself`）：はい / いいえ（実行できた範囲：　）
+```
+はい。
+```
 - 学習前：`format_rate` =　 / `content_rate` =　
+```
+"before": {
+    "label": "before",
+    "n": 21,
+    "format_rate": 0.09523809523809523,
+    "content_rate": 0.0,
+    "both_rate": 0.0,
+    "seconds": 21.1
+  },
+````
 - 学習後：`format_rate` =　 / `content_rate` =　
+```
+ "after": {
+    "label": "after",
+    "n": 21,
+    "format_rate": 1.0,
+    "content_rate": 0.9047619047619048,
+    "both_rate": 0.9047619047619048,
+    "seconds": 41.5
+  },
+```
 - 退行した質問：
+```
+なし
+```
 - 学習後に残った失敗と、その型（根拠なしの質問に断定した / 根拠ありの質問に確認要求で逃げた / 形式の崩れ）：
+```
+形式は正しいが、回答内容を間違えた。
+```
 - 知識を問う質問（セクション 6）の結果（学習前の分類 → 学習後の分類）と気づいたこと：
+```
+知識を身につけているわけではない。
+```
 - 学習で変わったこと・変わらなかったこと：
-
+```
+変わったこと: 正しい形式で答えれるようになった。
+変わらなかったこと: 正しい知識を身につけたわけではない。
+```
 ## 宿題
 
 - 取り組んだレベル：基礎 / 実装 / 発展
+```
+基礎
+```
 - 変えた設定やデータ：
+```
+num_train_epoch = 10
+```
 - 結果（比較表や数字）：
+```
+"before": {
+    "label": "before",
+    "n": 21,
+    "format_rate": 0.09523809523809523,
+    "content_rate": 0.0,
+    "both_rate": 0.0,
+    "seconds": 19.4
+  },
+  "after": {
+    "label": "after",
+    "n": 21,
+    "format_rate": 1.0,
+    "content_rate": 0.8095238095238095,
+    "both_rate": 0.8095238095238095,
+    "seconds": 41.1
+  },
+```
 - ファインチューニングが向く場面・向かない場面についての考察：
+```
+ファインチューニングはLLMに出力させるFormatを固定したい時には使えるが、新しい知識を獲得するという面では向かない。
+```
