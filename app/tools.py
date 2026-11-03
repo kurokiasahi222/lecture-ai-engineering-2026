@@ -99,13 +99,14 @@ def get_lecture_summary(lecture: int) -> str:
 def make_quiz(lecture: int) -> str:
     """指定した回の講義のクイズを出す。
 
-    "「第2回の内容から確認問題を出して」などのように、クイズの出題を聞かれたときに使う"
+    「第2回の内容から確認問題を出して」などのように、クイズの出題を聞かれたときに使う
     """
     glossary = load_glossary()
+    unique_lectures = sorted({str(term["lecture"]) for term in glossary})
     filtered_glossary = list[Term](filter(lambda d: d["lecture"] == lecture, glossary))
     if not filtered_glossary:
-        return f"第{lecture}回は存在しません。"
+        return f"用語集に第{lecture}回の用語はありません。用語がある回: {', '.join(unique_lectures)}"
     random_term = random.choice(filtered_glossary)
-    question = random_term["term"]
+    question = f"「{random_term["term"]}」の意味は?"
     answer = random_term["definition"]
-    return json.dumps({"question": question, "answer": answer})
+    return json.dumps({"question": question, "answer": answer}, ensure_ascii=False)
