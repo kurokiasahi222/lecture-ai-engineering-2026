@@ -52,7 +52,7 @@ def search_glossary(query: str) -> str:
     q = _normalize(query)
     if not q:
         return "検索語が空です。調べたい用語を1つ指定してください。"
-    glossary = load_glossary[dict[Any, Any]]()
+    glossary = load_glossary()
 
     exact = [e for e in glossary if q in _names(e)]
     # 「r」のような短い別名が何にでも当たらないよう、名前側が短いものは除く
@@ -103,6 +103,8 @@ def make_quiz(lecture: int) -> str:
     """
     glossary = load_glossary()
     filtered_glossary = list[Term](filter(lambda d: d["lecture"] == lecture, glossary))
+    if not filtered_glossary:
+        return f"第{lecture}回は存在しません。"
     random_term = random.choice(filtered_glossary)
     question = random_term["term"]
     answer = random_term["definition"]
